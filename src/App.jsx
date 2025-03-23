@@ -1,6 +1,7 @@
-import { useState, useEffect} from "react";
+import { useState, useEffect, useMemo} from "react";
 import "./App.css";
 import Trivia from "./components/trivia";
+import Timer from "./components/timer";
 
 function App() {
   const [questionNumber, setQuestionNumber] = useState(1);
@@ -76,23 +77,28 @@ const [earned, setEarned] = useState("$ 0");
     },
   ];
 
-  const moneyPyramid = [
-    { id: 1, amount: "$ 100" },
-    { id: 2, amount: "$ 2000" },
-    { id: 3, amount: "$ 3000" },
-    { id: 4, amount: "$ 4000" },
-    { id: 5, amount: "$ 5000" },
-    { id: 6, amount: "$ 6000" },
-    { id: 7, amount: "$ 7000" },
-    { id: 8, amount: "$ 8000" },
-    { id: 9, amount: "$ 9000" },
-    { id: 10, amount: "$ 100000" },
-    { id: 11, amount: "$ 110000" },
-    { id: 12, amount: "$ 120000" },
-    { id: 13, amount: "$ 130000" },
-    { id: 14, amount: "$ 140000" },
-    { id: 15, amount: "$ 150000" },
-  ].reverse();
+  const moneyPyramid = useMemo(
+    () =>
+      [
+      { id: 1, amount: "$ 100" },
+      { id: 2, amount: "$ 2000" },
+      { id: 3, amount: "$ 3000" },
+      { id: 4, amount: "$ 4000" },
+      { id: 5, amount: "$ 5000" },
+      { id: 6, amount: "$ 6000" },
+      { id: 7, amount: "$ 7000" },
+      { id: 8, amount: "$ 8000" },
+      { id: 9, amount: "$ 9000" },
+      { id: 10, amount: "$ 100000" },
+      { id: 11, amount: "$ 110000" },
+      { id: 12, amount: "$ 120000" },
+      { id: 13, amount: "$ 130000" },
+      { id: 14, amount: "$ 140000" },
+      { id: 15, amount: "$ 150000" },
+    ].reverse(),
+    []
+  );
+
 
   useEffect(() => {
     questionNumber > 1 &&
@@ -108,7 +114,9 @@ const [earned, setEarned] = useState("$ 0");
           {stop ? <h1 className="endText">You Earned: {earned}</h1> : (
             <>
           <div className="top">
-            <div className="timer">30</div>
+            <div className="timer">
+              <Timer />
+              </div>
           </div>
           <div className="bottom">
             <Trivia
